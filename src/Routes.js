@@ -3,8 +3,8 @@ import { Button } from 'react-native';
 
 import Home from './pages/Home';
 import TimeLine from './pages/TimeLine';
-import Cadastro from './pages/CadastroDoacao';
-import Mensagens from './pages/Mensagens';
+import Cadastro from './pages/DonationRegistration';
+import Mensagens from './pages/Message';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

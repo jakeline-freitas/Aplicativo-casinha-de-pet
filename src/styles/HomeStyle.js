@@ -3,7 +3,7 @@ import { StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:'space-evenly',
+        justifyContent:'space-around',
         alignItems:'center',
         backgroundColor:'#EEEEEE'
     },
@@ -35,7 +35,7 @@ export default StyleSheet.create({
     },
     text:{
         textAlign:'center',
-        color:'#3d3d3d',
+        color:'#616161',
         
     },
     box_btn_login:{
