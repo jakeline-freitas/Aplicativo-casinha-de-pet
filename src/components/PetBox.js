@@ -1,13 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native'
 
 export function PetBox() {
+
+    const [likeado, setLikeado] = useState(false)
+    const [like, setLikes] = useState(likeado)
+
+    const getLike = (likeado) => {
+        if (likeado > 0) {
+            return require("../images/heart-outline.png")
+        }
+        return require("../images/heart.png")
+    }
+
+    const curtirFoto = () => {
+        let qnt = like
+        if (likeado) {
+            qnt--
+        } else {
+            qnt++
+        }
+        setLikes(qnt)
+        setLikeado(!likeado)
+    }
     return (
         <View style={styles.buttonBoxPet}>
-            <Image />
-            <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Time_Line')}><Text>Home1</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Time_Line')}><Text>Home2</Text></TouchableOpacity>
+            <View style={styles.boxImg}>
+                <TouchableOpacity>
+                    <Image source={require('../images/gatos-1.jpg')} style={styles.img} />
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.boxButton}>
+                <View>
+                    <TouchableOpacity onPress={curtirFoto} style={styles.buttonLike}>
+                        <Image source={getLike(likeado)} style={styles.like} />
+                        <Text style={styles.text}>Adotar</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Text style={styles.textName}>Frederico</Text>
+                    <Text style={styles.textCity}>Rafael Fernandes/RN</Text>
+                </View>
+
+                {/* <TouchableOpacity onPress={() => navigation.navigate('Time_Line')}><Text>Home1</Text></TouchableOpacity> */}
+
             </View>
 
         </View>
@@ -18,15 +55,69 @@ export function PetBox() {
 
 const styles = StyleSheet.create({
     buttonBoxPet: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        flexWrap: 'wrap',
         width: 336,
-        height: 437,
+        height: 457,
         backgroundColor: "#F5F5F5",
-        marginTop: 70,
+        marginTop: 60,
         marginBottom: 70,
         borderRadius: 22,
-        borderWidth: 1,
+        // borderWidth: 1,
     },
+    boxImg: {
+
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 16,
+        width: 286,
+        height: 370,
+        borderRadius: 22,
+        // borderWidth: 1,
+    },
+    img: {
+        width: 286,
+        height: 370,
+        borderRadius: 22,
+    },
+    boxButton: {
+
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        // backgroundColor: 'pink',
+        width: 286,
+    },
+    like: {
+        width: 30,
+        height: 30,
+        // margin: 10
+    },
+    buttonLike:{
+        flexDirection:'row',
+        justifyContent:'space-evenly',
+        alignItems:'center',
+        backgroundColor:'#F0A4A9',
+        height:42,
+        width:96,
+        borderRadius:21
+    },
+    text:{
+        color:'#fff',
+        fontSize:16,
+    },
+    textName:{
+        color:'#707070',
+        fontSize:19,
+        fontFamily:'Montserrat, Regular'
+    },
+    textCity:{
+        color:'#707070',
+        fontSize:10,
+        fontFamily:'Montserrat, Light'
+    }
+
 })

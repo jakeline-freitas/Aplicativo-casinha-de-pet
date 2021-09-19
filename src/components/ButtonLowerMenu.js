@@ -1,9 +1,16 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
-export function Button() {
+import Icon from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+
+export function Button(props) {
     return (
         <View style={styles.buttonLowerMenu}>
-            <TouchableOpacity onPress={() => navigation.navigate('Time_Line')}><Text style={styles.text}>Home</Text></TouchableOpacity>
+            <TouchableOpacity onPress={props.click}  style={styles.buttonLowerMenu}>
+                <Icon name={props.icone} size={27} color='#fff'/>
+                <Text style={styles.text}>{props.label}</Text>
+            </TouchableOpacity>
         </View>
     )
 
@@ -11,9 +18,13 @@ export function Button() {
 
 const styles = StyleSheet.create({
     buttonLowerMenu: {
+        justifyContent:'center',
+        alignItems:'center'
         
     },
     text:{
-        color:"#fff"
+        color:"#fff",
+        textAlign:'center'
+        // fontSize:10
     }
 })

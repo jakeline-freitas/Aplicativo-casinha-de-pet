@@ -38,7 +38,7 @@ export default function Home( { navigation} ){
                 </View>
             </View>
             <View style={HomeStyle.box_btn_login}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                     <Text style={[HomeStyle.text, {fontSize:17}]}>Fazer Login</Text>
                 </TouchableOpacity>
             </View>
