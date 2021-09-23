@@ -4,11 +4,9 @@ import { TouchableOpacity, StyleSheet, View, Text, Modal, Pressable, Alert } fro
 
 import Icon from 'react-native-vector-icons/Feather'
 
-import Home from './pages/Home';
-import TimeLine from './pages/TimeLine';
-import Cadastro from './pages/DonationRegistration';
-import Mensagens from './pages/Message';
-import Login from './pages/Login';
+import Home from '../pages/Home';
+import TimeLine from '../pages/TimeLine';
+import Login from '../pages/Login';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,9 +17,7 @@ const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
 
-
-
-export function Routes() {
+export function LoginRoutes() {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -33,8 +29,10 @@ export function Routes() {
             }}
         >
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Time_Line" component={TimeLine} options={{
-                headerTintColor: '#fff',
+                headerShown: false,
+                // headerTintColor: '#fff',
                 headerTitle: false,
                 headerStyle: { backgroundColor: "#382116" },
                 headerRight: () => (
@@ -69,14 +67,7 @@ export function Routes() {
 
                 ),
             }} />
-            <Stack.Screen name="Doar" component={Cadastro} options={{
-                headerTintColor: '#382116',
-                headerTitle: false,
-                //    headerTransparent: true,
-                headerStyle: { backgroundColor: "#EEEEEE" },
-            }} />
-            <Stack.Screen name="Mensagens" component={Mensagens} />
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            
         </Stack.Navigator>
     );
 }

@@ -3,8 +3,8 @@ import { StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:'space-around',
-        alignItems:'center',
+        // justifyContent:'center',
+        // alignItems:'center',
         backgroundColor:'#EEEEEE'
     },
     img_section:{
@@ -22,8 +22,8 @@ export default StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        marginTop:10,
-        marginBottom:50,
+        marginTop:50,
+        marginBottom:100,
         // backgroundColor:"blue"
         
     },
@@ -42,6 +42,6 @@ export default StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        marginTop:40,
+        marginTop:100,
     }
 })

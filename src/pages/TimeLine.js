@@ -1,11 +1,27 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLogin } from '../context/authenticationProvide';
 import { PetBox } from '../components/PetBox'
 import { Button } from '../components/ButtonLowerMenu'
 
+
+
 export default function TimeLine({ navigation }) {
+    const {tokenLogged} = useLogin();
+
+    function verifyAuthentication(verify){
+
+        if(verify.token){
+            navigation.navigate('Doar')
+            
+        }else{
+            navigation.navigate('Login');
+        }
+
+        
+    }
 
     return (
         <View style={styles.container}>
@@ -18,12 +34,12 @@ export default function TimeLine({ navigation }) {
 
             </ScrollView>
             <View style={styles.lowerMenu}>
-                <Button label ='Home' icone='home' click={() => navigation.navigate('Time_Line')} />
+                <Button label ='Home' icone='home' click={() => navigation.navigate('Home')} />
                 <View>
                     <View style={[styles.boxButtonDoar, {
                         transform: [{ translateY: -30 }]
                     }]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Doar')} style={styles.buttonDoar}>
+                        <TouchableOpacity onPress={() => verifyAuthentication(tokenLogged)} style={styles.buttonDoar}>
                             <Icon name='plus-square' size={45} color='#fff' />
                         </TouchableOpacity>
 
