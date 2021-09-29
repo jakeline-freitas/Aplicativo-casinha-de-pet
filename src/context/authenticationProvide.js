@@ -1,8 +1,8 @@
 import React, {
-    createContext,
-    useContext,
-    useState,
-    useEffect
+  createContext,
+  useContext,
+  useState,
+  useEffect
 } from 'react';
 
 import { Alert } from 'react-native';
@@ -14,72 +14,104 @@ import api from '../services/Api';
 const LoginContext = createContext();
 
 function AuthenticationProvider({ children }) {
-    const [tokenLogged, setTokenLogged] = useState({});
-    const [userLoading, setUserLoading] = useState(true);
 
-    // const userStorageKey = '@casinhadepet:user';
-    const accessStorageKey = '@casinhadepet:token';
+  const userStorageKey = '@casinhadepet:user';
+
+  const [user, setUser] = useState({});
+  const [userLoading, setUserLoading] = useState(true);
+
+  
+  
+
+  async function handleLogin(email, senha) {
+    setUserLoading(true);
+    // parametros da requisição
+    var params = new URLSearchParams();
+    params.append('email', email);
+    params.append('password', senha);
+
+    console.log('login' + email + senha) 
+
+    // armazena response com token
+    try {
+
+      const { data } = await api.post('api/token/', params);
+      const access = data.access;
+      console.log("token" + access)
+      const responseUser = await api.get('usersList/', {
+        headers: {
+          'authorization': 'Bearer ' + access,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      const { id, username, email, phone } = responseUser.data[0];
     
 
-    async function handleLogin(email, senha) {
+      const userLogged = {
+        'id': id,
+        'name': username,
+        'email': email,
+        'phone': phone,
+        'token': access
+      };
+      
+      setUser(userLogged);
+      
+      console.log(userLogged, 'usuario')
+
+      console.log(user, 'USER')
+
+      await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
+
+    } catch (error) {
+      setUserLoading(false);
+      Alert.alert("Erro na autenticação", error);
+    }
+
+
+  }
+  //**Função para apagar usuário  */
+  async function logout() {
+    setUser({});
+    setUserLoading(false);
+    await AsyncStorage.removeItem(userStorageKey);
+  }
+
+  useEffect(() => {
+    async function loadTokenStorageDate() {
+
+      const userStoraged = await AsyncStorage.getItem(userStorageKey);
+      const u = JSON.parse(userStoraged)
+
+      
+
+      if (!userStoraged) {
+        console.log('deslogado')
+        setUserLoading(false);
+      } else {
         setUserLoading(true);
-        // parametros da requisição
-        var params = new URLSearchParams();
-        params.append('email', email);
-        params.append('password', senha);
+        setUser(u)
 
-        
-        // armazena response com token
-        try {
-
-            const response = await api.post('api/token/', params);
-            const { access } = response.data;
-            
-            const token = {
-              token: access
-            }
-
-            setTokenLogged(token)
-            
-            await AsyncStorage.setItem(accessStorageKey, JSON.stringify(token));
-            
-        } catch (error) {
-            setUserLoading(false);
-            Alert.alert("Erro na autenticação", error);
-        }
-
-    }
-     //**Função para apagar usuário  */
-     async function logout(){
-        setTokenLogged("")
-        await AsyncStorage.removeItem(accessStorageKey);
+      }
     }
 
-    useEffect(() => {
-        async function loadTokenStorageDate() {
-          const tokenStoraged = await AsyncStorage.getItem(accessStorageKey);
-          console.log("logado")
-          if(!tokenStoraged){
-            console.log('deslogado')
-            setUserLoading(false);
-          }
-        }
-        
-        loadTokenStorageDate();
-        
-      },[]);
+    loadTokenStorageDate();
 
-      return(
-        <LoginContext.Provider value={{handleLogin,logout,userLoading, tokenLogged}}>
-            { children }
-        </LoginContext.Provider>
-        
-    )
+  }, []);
+
+  return (
+    <LoginContext.Provider value={{ handleLogin, logout, userLoading, user, userStorageKey, userStorageKey }}>
+      {children}
+    </LoginContext.Provider>
+
+  )
 
 }
-function useLogin(){
-    const context= useContext(LoginContext);
-    return context;
-  }
-  
+function useLogin() {
+  const context = useContext(LoginContext);
+  return context;
+}
+
 export { AuthenticationProvider, useLogin }

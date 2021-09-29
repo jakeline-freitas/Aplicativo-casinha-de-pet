@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native'
 
-export function PetBox() {
+export function PetBox(props) {
 
     const [likeado, setLikeado] = useState(false)
     const [like, setLikes] = useState(likeado)
@@ -27,7 +27,7 @@ export function PetBox() {
         <View style={styles.buttonBoxPet}>
             <View style={styles.boxImg}>
                 <TouchableOpacity>
-                    <Image source={require('../images/gatos-1.jpg')} style={styles.img} />
+                        <Image source={{uri: props.photo}} style={styles.img} />
                 </TouchableOpacity>
             </View>
 
@@ -39,8 +39,8 @@ export function PetBox() {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text style={styles.textName}>Frederico</Text>
-                    <Text style={styles.textCity}>Rafael Fernandes/RN</Text>
+                    <Text style={styles.textName}>{props.name}</Text>
+                    <Text style={styles.textCity}>{props.city}</Text>
                 </View>
 
                 {/* <TouchableOpacity onPress={() => navigation.navigate('Time_Line')}><Text>Home1</Text></TouchableOpacity> */}

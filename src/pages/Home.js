@@ -1,13 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { View, Text, Image, TouchableOpacity, StatusBar } from 'react-native'
 import HomeStyle from '../styles/HomeStyle'
 
 import { useLogin } from '../context/authenticationProvide';
 
 export default function Home({ navigation }) {
-    const { userLoading, tokenLogged } = useLogin();
-    console.log(userLoading)
-    console.log(tokenLogged)
+    const { userLoading } = useLogin();
 
     function displayLoginButton(verify) {
         if (!verify) {
@@ -20,7 +18,9 @@ export default function Home({ navigation }) {
             )
         }
     }
-
+    // useEffect(() => {
+    //     displayLoginButton(userLoading)
+    // }, [])
     return (
 
         <View style={HomeStyle.container}>

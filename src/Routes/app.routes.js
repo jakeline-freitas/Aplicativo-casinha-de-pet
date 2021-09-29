@@ -8,7 +8,8 @@ import Home from '../pages/Home';
 import TimeLine from '../pages/TimeLine';
 import Cadastro from '../pages/DonationRegistration';
 import Mensagens from '../pages/Message';
-import Login from '../pages/Login';
+// import Login from '../pages/Login';
+import { useLogin } from '../context/authenticationProvide';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -22,13 +23,13 @@ const Tabs = createBottomTabNavigator();
 
 
 export function AppRoutes() {
-    const [modalVisible, setModalVisible] = useState(false);
+    const {logout,userLoading} = useLogin();
 
     return (
         <Stack.Navigator
             screenOptions={{
-                gestureEnabled: true,
-                gestureDirection: "horizontal",
+                // gestureEnabled: true,
+                // gestureDirection: "horizontal",
                 cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
             }}
         >
@@ -39,35 +40,16 @@ export function AppRoutes() {
                 headerStyle: { backgroundColor: "#382116" },
                 headerRight: () => (
                     <TouchableOpacity
-                        onPress={() => setModalVisible(true)}
+                        onPress={logout}
                         //   onPress={() => alert('This is a button!')}
                         style={styles.button}
                     >
-                        <Icon name="search" size={25} color="#fff" />
-                        <Modal
-                            animationType="fade"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert("Modal has been closed.");
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-                            <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
-                                    <Text style={styles.modalText}>Hello World!</Text>
-                                    <Pressable
-                                        style={[styles.button, styles.buttonClose]}
-                                        onPress={() => setModalVisible(!modalVisible)}
-                                    >
-                                        <Text style={styles.textStyle}>Hide Modal</Text>
-                                    </Pressable>
-                                </View>
-                            </View>
-                        </Modal>
+                        <Icon name="log-out" size={25} color="#fff" />
+                       
                     </TouchableOpacity>
 
                 ),
+                
             }} />
             <Stack.Screen name="Doar" component={Cadastro} options={{
                 headerTintColor: '#382116',

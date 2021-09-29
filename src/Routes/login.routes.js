@@ -23,16 +23,20 @@ export function LoginRoutes() {
     return (
         <Stack.Navigator
             screenOptions={{
-                gestureEnabled: true,
-                gestureDirection: "horizontal",
+                // gestureEnabled: true,
+                // gestureDirection: "horizontal",
                 cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
             }}
         >
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Login" component={Login} options = {{
+                headerTitle: false,
+                headerStyle: { backgroundColor: "#EEEEEE" },
+            }}/>
             <Stack.Screen name="Time_Line" component={TimeLine} options={{
-                headerShown: false,
-                // headerTintColor: '#fff',
+                // headerShown: false,
+                headerMode: 'none',
+                headerTintColor: '#382116',
                 headerTitle: false,
                 headerStyle: { backgroundColor: "#382116" },
                 headerRight: () => (
@@ -42,7 +46,7 @@ export function LoginRoutes() {
                         style={styles.button}
                     >
                         <Icon name="search" size={25} color="#fff" />
-                        <Modal
+                        {/* <Modal
                             animationType="fade"
                             transparent={true}
                             visible={modalVisible}
@@ -62,7 +66,7 @@ export function LoginRoutes() {
                                     </Pressable>
                                 </View>
                             </View>
-                        </Modal>
+                        </Modal> */}
                     </TouchableOpacity>
 
                 ),

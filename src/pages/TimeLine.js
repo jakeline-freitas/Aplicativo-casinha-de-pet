@@ -1,45 +1,81 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, Dimensions } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, Dimensions, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLogin } from '../context/authenticationProvide';
 import { PetBox } from '../components/PetBox'
 import { Button } from '../components/ButtonLowerMenu'
+import api from '../services/Api';
+import { set } from 'react-native-reanimated';
 
 
 
 export default function TimeLine({ navigation }) {
-    const {tokenLogged} = useLogin();
+    const { userLoading } = useLogin();
 
-    function verifyAuthentication(verify){
+    const [pets, setPets] = useState({});
+    
+    async function getPets() {
+        try {
+            const response = await api.get('listPets/');
+            const { data } = response;
+            setPets(data)
+            console.log(data)
+        } catch (err) {
+            console.error(err)
+        }
 
-        if(verify.token){
-            navigation.navigate('Doar')
+    }
+
+    async function verifyAuthenticationDoar(verify) {
+
+        if (verify) {
+            console.log("indo para cadastro" + verify)
+            navigation.navigate('Doar');
             
-        }else{
+        } else {
             navigation.navigate('Login');
         }
 
-        
     }
+    function verifyAuthenticationMsg(verify) {
 
+        if (verify) {
+            navigation.navigate('Mensagens')
+
+        } else {
+            navigation.navigate('Login');
+        }
+
+    }
+    useEffect(() => {
+        
+        getPets()
+    }, [])
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.boxes}>
-                    <PetBox />
-                    <PetBox />
-                    <PetBox />
-                </View>
 
-            </ScrollView>
+            <View style={styles.boxes}>
+                <FlatList data={pets}
+                    keyExtractor={item => item.id_pet.toString()}
+                    renderItem={({ item }) =>
+                        <PetBox name={item.name} city={item.city} photo={item.photo} />
+                    }
+                />
+
+                {/* <PetBox />
+                    <PetBox />
+                    <PetBox /> */}
+            </View>
+
+
             <View style={styles.lowerMenu}>
-                <Button label ='Home' icone='home' click={() => navigation.navigate('Home')} />
+                <Button label='Home' icone='home' click={() => navigation.navigate('Home')} />
                 <View>
                     <View style={[styles.boxButtonDoar, {
                         transform: [{ translateY: -30 }]
                     }]}>
-                        <TouchableOpacity onPress={() => verifyAuthentication(tokenLogged)} style={styles.buttonDoar}>
+                        <TouchableOpacity onPress={() => verifyAuthenticationDoar(userLoading)} style={styles.buttonDoar}>
                             <Icon name='plus-square' size={45} color='#fff' />
                         </TouchableOpacity>
 
@@ -48,7 +84,7 @@ export default function TimeLine({ navigation }) {
                 </View>
 
                 {/* <Button icone='plus-square' /> */}
-                <Button label='Chat' icone='message-circle' click={() => navigation.navigate('Mensagens')} />
+                <Button label='Chat' icone='message-circle' click={() => verifyAuthenticationMsg(userLoading)} />
             </View>
         </View>
 
@@ -96,7 +132,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#fff",
         textAlign: 'center',
-        transform:[{translateY:-25}]
+        transform: [{ translateY: -25 }]
         // fontSize:10
     }
 

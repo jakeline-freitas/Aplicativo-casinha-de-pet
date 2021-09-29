@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 export function ButtonSmall(props) {
     return (
         <View style={styles.buttonSmall}>
-            <TouchableOpacity onPress={props.click}  style={styles.buttonSmall}>
+            <TouchableOpacity onPress={props.click}  >
                 {/* <Icon name={props.icone} size={27} color='#fff'/> */}
                 <Text style={styles.text}>{props.label}</Text>
             </TouchableOpacity>
@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     },
     text:{
         color:"#fff",
-        textAlign:'center'
-        // fontSize:10
+        textAlign:'center',
+        fontSize:16,
+        fontWeight:'900'
     }
 })

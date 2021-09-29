@@ -6,7 +6,7 @@ import { useLogin } from '../context/authenticationProvide';
 
 export function MainRoutes(){
     
-    const {tokenLogged} = useLogin()
-    console.log(tokenLogged)
-    return tokenLogged.token ? <AppRoutes/>: <LoginRoutes/>;
+    const {userLoading} = useLogin()
+    // console.log(tokenLogged)
+    return userLoading ? <AppRoutes/>: <LoginRoutes/>;
 }
