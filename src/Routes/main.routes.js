@@ -6,7 +6,8 @@ import { useLogin } from '../context/authenticationProvide';
 
 export function MainRoutes(){
     
-    const {userLoading} = useLogin()
+    const {userLoading,  refreshToken} = useLogin();
+    refreshToken();
     // console.log(tokenLogged)
     return userLoading ? <AppRoutes/>: <LoginRoutes/>;
 }

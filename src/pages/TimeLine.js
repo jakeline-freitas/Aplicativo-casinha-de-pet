@@ -1,38 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, Dimensions, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, Dimensions, FlatList, RefreshControl } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLogin } from '../context/authenticationProvide';
 import { PetBox } from '../components/PetBox'
 import { Button } from '../components/ButtonLowerMenu'
 import api from '../services/Api';
-import { set } from 'react-native-reanimated';
 
 
 
 export default function TimeLine({ navigation }) {
-    const { userLoading } = useLogin();
+    const { userLoading, pets } = useLogin();
 
-    const [pets, setPets] = useState({});
-    
-    async function getPets() {
-        try {
-            const response = await api.get('listPets/');
-            const { data } = response;
-            setPets(data)
-            console.log(data)
-        } catch (err) {
-            console.error(err)
-        }
+    // const [pets, setPets] = useState({});
 
-    }
+    // async function getPets() {
+    //     try {
+    //         const response = await api.get('listPets/');
+    //         const { data } = response;
+    //         setPets(data)
+    //         console.log(data)
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
 
-    async function verifyAuthenticationDoar(verify) {
+    // }
+
+    function verifyAuthenticationDoar(verify) {
 
         if (verify) {
             console.log("indo para cadastro" + verify)
             navigation.navigate('Doar');
-            
+
         } else {
             navigation.navigate('Login');
         }
@@ -48,10 +47,17 @@ export default function TimeLine({ navigation }) {
         }
 
     }
-    useEffect(() => {
-        
-        getPets()
-    }, [])
+    
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
     return (
         <View style={styles.container}>
 
@@ -59,13 +65,10 @@ export default function TimeLine({ navigation }) {
                 <FlatList data={pets}
                     keyExtractor={item => item.id_pet.toString()}
                     renderItem={({ item }) =>
-                        <PetBox name={item.name} city={item.city} photo={item.photo} />
+                        <PetBox name={item.name} city={item.city} photo={item.photo} phone={item.phoneOwner} />
                     }
-                />
+            />
 
-                {/* <PetBox />
-                    <PetBox />
-                    <PetBox /> */}
             </View>
 
 
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#EEEEEE',
+        backgroundColor: '#E5E5E5',
 
     },
     boxes: {

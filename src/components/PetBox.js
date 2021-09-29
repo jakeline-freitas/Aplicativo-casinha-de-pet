@@ -1,46 +1,30 @@
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity, Image, Linking } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 
-export function PetBox(props) {
+export function PetBox({photo , name, city, phone}) {
 
-    const [likeado, setLikeado] = useState(false)
-    const [like, setLikes] = useState(likeado)
-
-    const getLike = (likeado) => {
-        if (likeado > 0) {
-            return require("../images/heart-outline.png")
-        }
-        return require("../images/heart.png")
-    }
-
-    const curtirFoto = () => {
-        let qnt = like
-        if (likeado) {
-            qnt--
-        } else {
-            qnt++
-        }
-        setLikes(qnt)
-        setLikeado(!likeado)
-    }
+    
     return (
         <View style={styles.buttonBoxPet}>
             <View style={styles.boxImg}>
                 <TouchableOpacity>
-                        <Image source={{uri: props.photo}} style={styles.img} />
+                        <Image source={{uri: photo}} style={styles.img} />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.boxButton}>
                 <View>
-                    <TouchableOpacity onPress={curtirFoto} style={styles.buttonLike}>
-                        <Image source={getLike(likeado)} style={styles.like} />
+                    <TouchableOpacity onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=55'+phone+'&text=Tenho interesse no animal.')} style={styles.buttonLike}>
+                        {/* <Image source={getLike(likeado)} style={styles.like} /> */}
+                        <Icon name ="ios-logo-whatsapp" size ={25} color ="#fff"/>
                         <Text style={styles.text}>Adotar</Text>
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text style={styles.textName}>{props.name}</Text>
-                    <Text style={styles.textCity}>{props.city}</Text>
+                    <Text style={styles.textName}>{name}</Text>
+                    <Text style={styles.textCity}>{city}</Text>
+                    
                 </View>
 
                 {/* <TouchableOpacity onPress={() => navigation.navigate('Time_Line')}><Text>Home1</Text></TouchableOpacity> */}
@@ -66,6 +50,8 @@ const styles = StyleSheet.create({
         marginTop: 60,
         marginBottom: 70,
         borderRadius: 22,
+        
+        
         // borderWidth: 1,
     },
     boxImg: {

@@ -29,7 +29,7 @@ export default function Cadastro({navigation}) {
     const { control, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
     // const [resourcePath, setResourcePath] = useState({});
     const [checked, setChecked] = React.useState('sim');
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState('outros');
 
     const [imageURI, setImageURI] = useState("");
     const [imageFileName, setimageFileName] = useState("");
@@ -49,7 +49,7 @@ export default function Cadastro({navigation}) {
         };
 
         launchImageLibrary(options, response => {
-            console.log("Response = ", response.assets[0].uri);
+            console.log("Response = ", response);
             // setImage(response.assets[0].base64);
             if(response.assets[0].uri){
                 setImageURI(response.assets[0].uri)
@@ -60,6 +60,7 @@ export default function Cadastro({navigation}) {
             if(response.assets[0].type){
                 setimageType(response.assets[0].type)
             }
+            
             if (response.didCancel) {
                 console.log("usuario cancelou seleção de imagem");
             }else if (response.errorCode = 'permission') {
@@ -75,6 +76,7 @@ export default function Cadastro({navigation}) {
             }else {
                 // const source = {uri: 'data:image/jpeg;base64,' + response.base64};
                 // setImage(response.assets[0].base64);
+                
             }
         })
     }
