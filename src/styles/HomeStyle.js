@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container:{
         flex:1,
         // justifyContent:'center',
-        // alignItems:'center',
+        alignItems:'center',
         backgroundColor:'#EEEEEE'
     },
     img_section:{
@@ -40,8 +40,17 @@ export default StyleSheet.create({
     },
     box_btn_login:{
         flexDirection:'row',
-        justifyContent:'center',
+        justifyContent:'space-evenly',
         alignItems:'center',
         marginTop:100,
+        marginLeft:22,
+        backgroundColor:'#382116',
+        borderRadius: 24,
+        width: 250,
+        height: 45,
+
+    },
+    btnLogin_Cadastro:{
+
     }
 })

@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import Home from '../pages/Home';
 import TimeLine from '../pages/TimeLine';
 import Login from '../pages/Login';
+import RegisterUser from '../pages/RegistrerUser';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,6 +30,10 @@ export function LoginRoutes() {
         >
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Stack.Screen name="Login" component={Login} options = {{
+                headerTitle: false,
+                headerStyle: { backgroundColor: "#EEEEEE" },
+            }}/>
+            <Stack.Screen name="RegisterUser" component={RegisterUser} options = {{
                 headerTitle: false,
                 headerStyle: { backgroundColor: "#EEEEEE" },
             }}/>

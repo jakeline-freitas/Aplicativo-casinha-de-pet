@@ -41,7 +41,10 @@ export default function Home({ navigation }) {
             return (
                 <View style={HomeStyle.box_btn_login}>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={[HomeStyle.text, { fontSize: 17 }]}>Fazer Login</Text>
+                        <Text style={[{color:"#fff"}, { fontSize: 17 }]}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterUser')}>
+                        <Text style={[{color:"#fff"}, { fontSize: 17 }]}>Cadastre-se</Text>
                     </TouchableOpacity>
                 </View>
             )

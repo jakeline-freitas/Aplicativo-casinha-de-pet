@@ -19,6 +19,7 @@ function AuthenticationProvider({ children }) {
 
   const [user, setUser] = useState({});
   const [userLoading, setUserLoading] = useState(true);
+  
 
   const [pets, setPets] = useState({});
 
