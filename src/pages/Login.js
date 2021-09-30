@@ -28,24 +28,24 @@ export default function Login() {
 
     async function Login(data) {
         Keyboard.dismiss();
-        console.log(data.email + "lll")
+        
         try {
             setIsLoading(true);
             return await handleLogin(data.email, data.senha);
 
         } catch (error) {
-            Alert.alert("Erro na autenticação", error);
+            Alert.alert("Erro na autenticação");
             setIsLoading(false);
         } 
 
     }
-    if (isLoading) {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-        )
-    }
+    // if (isLoading) {
+    //     return (
+    //         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    //             <ActivityIndicator size="large" color="#0000ff" />
+    //         </View>
+    //     )
+    // }
 
     return (
         <View style={LoginStyle.container}>

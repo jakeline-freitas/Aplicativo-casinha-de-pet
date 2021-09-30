@@ -45,7 +45,7 @@ export function LoginRoutes() {
                 headerStyle: { backgroundColor: "#382116" },
                 headerRight: () => (
                     <TouchableOpacity
-                        onPress={() => setModalVisible(true)}
+                        // onPress={}
                         //   onPress={() => alert('This is a button!')}
                         style={styles.button}
                     >

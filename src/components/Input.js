@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
         // textAlign:'center',
         color: '#616161',
         fontSize: 18,
-        marginBottom: 5
+        marginBottom: 5,
+        fontFamily:'Montserrat-Medium',
 
     },
     inputError: {

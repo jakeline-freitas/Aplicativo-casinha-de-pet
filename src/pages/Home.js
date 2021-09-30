@@ -41,10 +41,10 @@ export default function Home({ navigation }) {
             return (
                 <View style={HomeStyle.box_btn_login}>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={[{color:"#fff"}, { fontSize: 17 }]}>Login</Text>
+                        <Text style={[{color:"#fff"}, { fontSize: 17 }, {fontFamily: 'Montserrat-Regular'}]}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('RegisterUser')}>
-                        <Text style={[{color:"#fff"}, { fontSize: 17 }]}>Cadastre-se</Text>
+                        <Text style={[{color:"#fff"}, { fontSize: 17 }, {fontFamily: 'Montserrat-Regular'}]}>Cadastre-se</Text>
                     </TouchableOpacity>
                 </View>
             )
@@ -56,7 +56,7 @@ export default function Home({ navigation }) {
     return (
 
         <View style={HomeStyle.container}>
-            <StatusBar backgroundColor="#EEEEEE" />
+            <StatusBar backgroundColor="#fff" />
             <View style={HomeStyle.box_img}>
                 <Image source={require('../images/logo.png')} style={HomeStyle.img} />
             </View>

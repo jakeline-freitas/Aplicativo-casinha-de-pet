@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     text:{
         color:"#fff",
         textAlign:'center',
-        fontSize:16,
-        fontWeight:'900'
+        fontSize:17,
+        fontFamily:'Montserrat-Regular'
     }
 })

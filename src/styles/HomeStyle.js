@@ -36,6 +36,8 @@ export default StyleSheet.create({
     text:{
         textAlign:'center',
         color:'#616161',
+        fontFamily: 'Montserrat-Regular',
+        fontSize:20
         
     },
     box_btn_login:{

@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     text_title: {
         fontSize: 24,
         color: '#707070',
-        fontWeight: '800',
+        fontFamily:'Montserrat-Medium',
         // margin:15,
         textAlign: 'center'
     },
@@ -237,7 +237,6 @@ const styles = StyleSheet.create({
     text_label:{
         fontSize: 17,
         color: '#707070',
-        fontWeight: 'bold',
-        fontFamily: 'Montserrat',
+        fontFamily: 'Montserrat-Medium',
     }
 })

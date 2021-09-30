@@ -35,29 +35,30 @@ export default function RegisterUser({navigation}) {
     async function Register(data) {
         Keyboard.dismiss();
 
-        console.log(data);
-        console.log(cel);
-
+        if(cel != ""){
         
-        var params = new FormData();
-        params.append('email', data.email);
-        params.append('username', data.username);
-        params.append('phone', cel);
-        params.append('password', data.senha);
-        params.append('password_confirm', data.confirmarSenha);
+            var params = new FormData();
+            params.append('email', data.email);
+            params.append('username', data.username);
+            params.append('phone', cel);
+            params.append('password', data.senha);
+            params.append('password_confirm', data.confirmarSenha);
 
 
 
-        try {
+            try {
 
-            const response = await api.post('users/', params);
+                const response = await api.post('users/', params);
+                    
                 
-             
-            console.log(response)
-            navigation.navigate('Login');
+                console.log(response)
+                navigation.navigate('Login');
 
-        } catch(error){
-            console.log(error.message)
+            } catch(error){
+                console.log(error.message)
+            }
+        }else{
+            Alert.alert("cadastre um telefone para contato");
         }
         
     }

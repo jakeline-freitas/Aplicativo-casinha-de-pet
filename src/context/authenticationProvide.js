@@ -37,7 +37,7 @@ function AuthenticationProvider({ children }) {
     try {
 
       const { data } = await api.post('api/token/', params);
-
+      
       const access = data.access;
       const refresh = data.refresh;
 

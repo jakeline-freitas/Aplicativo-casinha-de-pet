@@ -65,7 +65,7 @@ export default function TimeLine({ navigation }) {
                 <FlatList data={pets}
                     keyExtractor={item => item.id_pet.toString()}
                     renderItem={({ item }) =>
-                        <PetBox name={item.name} city={item.city} photo={item.photo} phone={item.phoneOwner} />
+                        <PetBox name={item.name} city={item.city} photo={item.photo} phone={item.phoneOwner} vacci={item.vacinne} />
                     }
             />
 
@@ -135,7 +135,8 @@ const styles = StyleSheet.create({
     text: {
         color: "#fff",
         textAlign: 'center',
-        transform: [{ translateY: -25 }]
+        transform: [{ translateY: -25 }],
+        fontFamily: 'Montserrat-Regular'
         // fontSize:10
     }
 
